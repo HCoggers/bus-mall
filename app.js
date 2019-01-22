@@ -12,8 +12,8 @@ var pastRandomize = [0, 0, 0];
 
 var userClicks = 0;
 //Product Constructor function
-function Product(name) {
-    this.title = name;
+function Product(name, title) {
+    this.title = title;
     this.filepath = `img/${name}.jpg`;
     this.views = 0;
     this.clicks = 0;
@@ -22,7 +22,7 @@ function Product(name) {
 
 //Create all product objects
 var productFiles = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
-var productTitles = ['R2D2 Luggage', 'Banana Slicer', 'Bathroom Tablet Stand', 'Useless Rainboots', 'All-in-one Breakfast Maker', 'Meatball Bubblegum', 'Uncomfortable Chair', 'Cthulhu Action Figure', 'Doggy Duck-beak', 'Dragon Meat', 'Pen utensils', 'Puppy Sweeper Sweater', 'Pizza Scissors', '']
+var productTitles = ['R2D2 Luggage', 'Banana Slicer', 'Bathroom Tablet Stand', 'Useless Rainboots', 'All-in-one Breakfast Maker', 'Meatball Bubblegum', 'Uncomfortable Chair', 'Cthulhu Action Figure', 'Doggy Duck-beak', 'Dragon Meat', 'Pen utensils', 'Puppy Sweeper Sweater', 'Pizza Scissors', 'Shark Attack Bed', 'Baby Sweeper Sweater', 'Tauntaun Belly Sleeping Bag', 'Unicorn Meat', 'Tentacle USB Drive', 'Wrong Watering Can', 'Impossible Wine Glass'];
 
 for (var i = 0; i < productFiles.length; i++) {
     new Product(productFiles[i], productTitles[i]);
