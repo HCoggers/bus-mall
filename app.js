@@ -39,7 +39,6 @@ function verifyRandoms() {
     while (randomize[2] === randomize[0] || randomize[2] === randomize[1] || randomize[2] === pastRandomize[0] || randomize[2] === pastRandomize[1] || randomize[2] === pastRandomize[2]) {
         randomize[2] = Math.floor(Math.random() * allProducts.length);
     }
-    // console.log('index numbers:', randomize[0], randomize[1], randomize[2]);
 
     pastRandomize[0] = randomize[0];
     pastRandomize[1] = randomize[1];
