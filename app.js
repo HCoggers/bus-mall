@@ -7,8 +7,7 @@ var imgA = document.getElementById('producta');
 var imgB = document.getElementById('productb');
 var imgC = document.getElementById('productc');
 
-var randomize = [0, 0, 0];
-var pastRandomize = [0, 0, 0];
+var randomize = [0, 0, 0, 0, 0, 0];
 
 var userClicks = 0;
 //Product Constructor function
@@ -30,19 +29,14 @@ for (var i = 0; i < productFiles.length; i++) {
 
 //Render random 3 images
 function verifyRandoms() {
-    while (randomize[0] === pastRandomize[0] || randomize[0] === pastRandomize[1] || randomize[0] === pastRandomize[2]) {
-        randomize[0] = Math.floor(Math.random() * allProducts.length);
+    for (var i = 0; i < 3; i++) {
+        var random = Math.floor(Math.random() * allProducts.length);
+        while (randomize.includes(random)) {
+            random = Math.floor(Math.random() * allProducts.length);
+        }
+        randomize.unshift(random);
+        randomize.pop();
     }
-    while (randomize[1] === randomize[0] || randomize[1] === pastRandomize[0] || randomize[1] === pastRandomize[1] || randomize[1] === pastRandomize[2]) {
-        randomize[1] = Math.floor(Math.random() * allProducts.length);
-    }
-    while (randomize[2] === randomize[0] || randomize[2] === randomize[1] || randomize[2] === pastRandomize[0] || randomize[2] === pastRandomize[1] || randomize[2] === pastRandomize[2]) {
-        randomize[2] = Math.floor(Math.random() * allProducts.length);
-    }
-
-    pastRandomize[0] = randomize[0];
-    pastRandomize[1] = randomize[1];
-    pastRandomize[2] = randomize[2];
 }
 
 function renderProducts() {
