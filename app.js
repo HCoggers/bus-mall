@@ -15,6 +15,7 @@ var userClicks = 0;
 //Product Constructor function
 function Product(name, title) {
     this.title = title;
+    this.name = name;
     this.filepath = `img/${name}.jpg`;
     this.views = 0;
     this.clicks = 0;
@@ -88,12 +89,23 @@ function handleClick(event) {
         }
         userClicks = 0;
         
-        //render data on a chart
-        barGraph.update();
-        //clear Storage
-        localStorage.clear();
-        //save data to local storage
+        //save data to local table
         localStorage.savedProducts = JSON.stringify(allProducts);
+        localStorage.savedVotes = JSON.stringify(productVotes);
+
+        //render data on a chart
+        var ctx = document.getElementById('datachart').getContext('2d');
+        var barGraph = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: productTitles,
+                datasets: [{
+                    label: 'Votes',
+                    data: productVotes
+                }],
+            }
+        });
+        barGraph.update();
     }
 }
 
@@ -103,24 +115,17 @@ function newVoter(event) {
     options.addEventListener('click', handleClick);
 }
 
-var ctx = document.getElementById('datachart').getContext('2d');
-var barGraph = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: productTitles,
-        datasets: [{
-            label: 'Votes',
-            data: productVotes
-        }],
-    }
-});
-
 
 //on page load:
 console.log(localStorage.length);
-if(localStorage.length === 1) {
-    //retrieve local objects
-
+if(localStorage.length === 2) {
+    var loadProducts = JSON.parse(localStorage.savedProducts);
+    for (var i = 0; i < loadProducts.length; i++) {
+        new Product(loadProducts[i].name, loadProducts[i].title);
+        allProducts[i].views = loadProducts[i].views;
+        allProducts[i].clicks = loadProducts[i].clicks;
+    }
+    productVotes = JSON.parse(localStorage.savedVotes);
 } else {
     for (var i = 0; i < productFiles.length; i++) {
         new Product(productFiles[i], productTitles[i]);
