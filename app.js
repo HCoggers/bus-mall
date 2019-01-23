@@ -74,7 +74,7 @@ function handleClick(event) {
     }
     verifyRandoms();
     renderProducts();
-    if (userClicks % 5 === 0) {
+    if (userClicks % 25 === 0) {
         console.table(allProducts);
         options.removeEventListener('click', handleClick);
         reset.addEventListener('click', newVoter);
@@ -139,7 +139,7 @@ function handleClick(event) {
     }
 }
 
-function newVoter(event) {
+function newVoter() {
     verifyRandoms();
     renderProducts();
     options.addEventListener('click', handleClick);
@@ -157,6 +157,7 @@ if(localStorage.length === 2) {
     }
     productVotes = JSON.parse(localStorage.savedVotes);
 } else {
+    localStorage.clear();
     for (var i = 0; i < productFiles.length; i++) {
         new Product(productFiles[i], productTitles[i]);
     }
