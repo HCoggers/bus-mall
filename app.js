@@ -8,6 +8,7 @@ var imgB = document.getElementById('productb');
 var imgC = document.getElementById('productc');
 
 var randomize = [0, 0, 0, 0, 0, 0];
+var productVotes = [];
 
 var userClicks = 0;
 //Product Constructor function
@@ -17,6 +18,7 @@ function Product(name, title) {
     this.views = 0;
     this.clicks = 0;
     allProducts.push(this);
+    productVotes.push(this.clicks);
 }
 
 //Create all product objects
@@ -68,6 +70,7 @@ function handleClick(event) {
     for (var i = 0; i < allProducts.length; i++) {
         if (event.target.title === allProducts[i].title) {
             allProducts[i].clicks++;
+            productVotes[i]++;
             userClicks++;
             clickPic = true;
             console.log(event.target.title);
@@ -76,6 +79,8 @@ function handleClick(event) {
     if (clickPic === false) {
         return alert('Please click on one of the products.');
     }
+    verifyRandoms();
+    renderProducts();
     if (userClicks === 25) {
         console.table(allProducts);
         options.removeEventListener('click', handleClick);
@@ -87,7 +92,18 @@ function handleClick(event) {
             ulEl.appendChild(liEl);
         }
         userClicks = 0;
+        
+        //render data on a chart
+        var ctx = document.getElementById('datachart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: productTitles,
+                datasets: [{
+                    label: 'Votes',
+                    data: productVotes
+                }],
+            }
+        });
     }
-    verifyRandoms();
-    renderProducts();
 }
