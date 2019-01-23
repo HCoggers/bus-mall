@@ -94,16 +94,18 @@ function handleClick(event) {
         userClicks = 0;
         
         //render data on a chart
-        var ctx = document.getElementById('datachart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: productTitles,
-                datasets: [{
-                    label: 'Votes',
-                    data: productVotes
-                }],
-            }
-        });
+        barGraph.update();
     }
 }
+
+var ctx = document.getElementById('datachart').getContext('2d');
+var barGraph = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: productTitles,
+        datasets: [{
+            label: 'Votes',
+            data: productVotes
+        }],
+    }
+});
