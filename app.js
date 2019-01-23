@@ -3,6 +3,7 @@
 var allProducts = [];
 
 var options = document.getElementById('products');
+var reset = document.getElementById('reset');
 var imgA = document.getElementById('producta');
 var imgB = document.getElementById('productb');
 var imgC = document.getElementById('productc');
@@ -81,12 +82,15 @@ function handleClick(event) {
     }
     verifyRandoms();
     renderProducts();
-    if (userClicks === 25) {
+    if (userClicks === 25 || userClicks === 50 || userClicks === 75 || userClicks === 100) {
         console.table(allProducts);
         options.removeEventListener('click', handleClick);
+        reset.addEventListener('click', newVoter);
+        
+        var ulEl = document.getElementById('results');
+        ulEl.textContent = '';
 
         for (var i = 0; i < allProducts.length; i++) {
-            var ulEl = document.getElementById('results');
             var liEl = document.createElement('li');
             liEl.textContent = `${allProducts[i].clicks} votes for the ${allProducts[i].title}`;
             ulEl.appendChild(liEl);
@@ -96,6 +100,12 @@ function handleClick(event) {
         //render data on a chart
         barGraph.update();
     }
+}
+
+function newVoter(event) {
+    verifyRandoms();
+    renderProducts();
+    options.addEventListener('click', handleClick);
 }
 
 var ctx = document.getElementById('datachart').getContext('2d');

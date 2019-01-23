@@ -21,8 +21,10 @@
 		</header>
 
 		<aside>
-			<h2>Results</h2>
-			<ul id="results"></ul>
+			<div>
+				<h2>Results</h2>
+				<ul id="results"></ul>
+			</div>
 		</aside>
 
 		<main>
@@ -31,11 +33,15 @@
 				<img id="productb"src="" alt="" title="" />
 				<img id="productc"src="" alt="" title="" />
 			</div>
-			<button>Chart!</button>
-			<section>
-				<canvas id="datachart" width="200" height="100"></canvas>
-			</section>
+			<button id="reset">Vote Again!</button>
+			<p>Thank you for helping us decide BusMall's very first batch of catalogue products! Please click The picture of the product you would be most likely to purchase! Once you have voted 25 times in total, we will show you a chart of the data we have collected from all the other participants, so that you can see how your opinions compare to others'!</p>
+			<p>As compensation for your assistance, you will recieve a set of our limited edition dining set, available only to BusMall volunteers!</p>
+			<img src="img/silverware.jpg" alt="Pointless Silverware" title="Pointless Silverware"/>
 		</main>
+
+		<section>
+			<canvas id="datachart" width="200" height="100"></canvas>
+		</section>
 
 		<Footer>
 			<!-- Coming Eventually -->
