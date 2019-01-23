@@ -74,7 +74,7 @@ function handleClick(event) {
     }
     verifyRandoms();
     renderProducts();
-    if (userClicks % 25 === 0) {
+    if (userClicks % 5 === 0) {
         console.table(allProducts);
         options.removeEventListener('click', handleClick);
         reset.addEventListener('click', newVoter);
@@ -97,12 +97,42 @@ function handleClick(event) {
         var ctx = document.getElementById('datachart').getContext('2d');
         var barGraph = new Chart(ctx, {
             type: 'bar',
+            responsive: false,
             data: {
                 labels: productTitles,
                 datasets: [{
                     label: 'Votes',
-                    data: productVotes
-                }],
+                    data: productVotes,
+                    backgroundColor: 'black',
+                    borderColor: 'orange',
+                    borderWidth: 2,
+                    hoverBackgroundColor: 'darkgrey'
+                }]
+            },
+            options: {
+                legend: {
+                    labels: {
+                        fontColor: "white",
+                        fontSize: 18
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            fontColor: "white",
+                            fontSize: 10,
+                            stepSize: 1,
+                            beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontColor: "white",
+                            fontSize: 12,
+                            autoSkip: false
+                        }
+                    }]
+                }
             }
         });
         barGraph.update();
