@@ -7,8 +7,8 @@ var imgA = document.getElementById('producta');
 var imgB = document.getElementById('productb');
 var imgC = document.getElementById('productc');
 
-var randomize = [0, 0, 0];
-var pastRandomize = [0, 0, 0];
+var randomize = [0, 0, 0, 0, 0, 0];
+var productVotes = [];
 
 var userClicks = 0;
 //Product Constructor function
@@ -18,6 +18,7 @@ function Product(name, title) {
     this.views = 0;
     this.clicks = 0;
     allProducts.push(this);
+    productVotes.push(this.clicks);
 }
 
 //Create all product objects
@@ -30,20 +31,14 @@ for (var i = 0; i < productFiles.length; i++) {
 
 //Render random 3 images
 function verifyRandoms() {
-    while (randomize[0] === pastRandomize[0] || randomize[0] === pastRandomize[1] || randomize[0] === pastRandomize[2]) {
-        randomize[0] = Math.floor(Math.random() * allProducts.length);
+    for (var i = 0; i < 3; i++) {
+        var random = Math.floor(Math.random() * allProducts.length);
+        while (randomize.includes(random)) {
+            random = Math.floor(Math.random() * allProducts.length);
+        }
+        randomize.unshift(random);
+        randomize.pop();
     }
-    while (randomize[1] === randomize[0] || randomize[1] === pastRandomize[0] || randomize[1] === pastRandomize[1] || randomize[1] === pastRandomize[2]) {
-        randomize[1] = Math.floor(Math.random() * allProducts.length);
-    }
-    while (randomize[2] === randomize[0] || randomize[2] === randomize[1] || randomize[2] === pastRandomize[0] || randomize[2] === pastRandomize[1] || randomize[2] === pastRandomize[2]) {
-        randomize[2] = Math.floor(Math.random() * allProducts.length);
-    }
-    // console.log('index numbers:', randomize[0], randomize[1], randomize[2]);
-
-    pastRandomize[0] = randomize[0];
-    pastRandomize[1] = randomize[1];
-    pastRandomize[2] = randomize[2];
 }
 
 function renderProducts() {
@@ -75,6 +70,7 @@ function handleClick(event) {
     for (var i = 0; i < allProducts.length; i++) {
         if (event.target.title === allProducts[i].title) {
             allProducts[i].clicks++;
+            productVotes[i]++;
             userClicks++;
             clickPic = true;
             console.log(event.target.title);
@@ -83,6 +79,8 @@ function handleClick(event) {
     if (clickPic === false) {
         return alert('Please click on one of the products.');
     }
+    verifyRandoms();
+    renderProducts();
     if (userClicks === 25) {
         console.table(allProducts);
         options.removeEventListener('click', handleClick);
@@ -94,7 +92,20 @@ function handleClick(event) {
             ulEl.appendChild(liEl);
         }
         userClicks = 0;
+        
+        //render data on a chart
+        barGraph.update();
     }
-    verifyRandoms();
-    renderProducts();
 }
+
+var ctx = document.getElementById('datachart').getContext('2d');
+var barGraph = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: productTitles,
+        datasets: [{
+            label: 'Votes',
+            data: productVotes
+        }],
+    }
+});

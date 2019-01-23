@@ -1,43 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>BusMall Focus Group: Product Survey</title>
-        <link href="css/reset.css" type="text/css" rel="stylesheet" />
-        <link href="css/style.css" type="text/css" rel="stylesheet" />
-    </head>
-    <body>
-        <header>
-            <img src="img/sound_transit_link_wide.png" alt="Sound Transit Link Train" title="Sound Transit Link Train">
-            <h1>BusMall's Product Survey</h1>
-            <nav>
-                <ul>
-                    <li>Home</li>
-                    <li>Products</li>
-                    <li>About</li>
-                    <li>Contact</li>
-                </ul>
-            </nav>
-        </header>
+	<head>
+		<title>BusMall Focus Group: Product Survey</title>
+		<link href="css/reset.css" type="text/css" rel="stylesheet" />
+		<link href="css/style.css" type="text/css" rel="stylesheet" />
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+	</head>
+	<body>
+		<header>
+			<img src="img/sound_transit_link_wide.png" alt="Sound Transit Link Train" title="Sound Transit Link Train">
+			<h1>BusMall's Product Survey</h1>
+			<nav>
+				<ul>
+					<li>Home</li>
+					<li>Products</li>
+					<li>About</li>
+					<li>Contact</li>
+				</ul>
+			</nav>
+		</header>
 
-        <aside>
-            <h2>Results</h2>
-            <ul id="results"></ul>
-        </aside>
+		<aside>
+			<h2>Results</h2>
+			<ul id="results"></ul>
+		</aside>
 
-        <main>
-            <div id="products">
-                <img id="producta" src="" alt="" title="" />
-                <img id="productb"src="" alt="" title="" />
-                <img id="productc"src="" alt="" title="" />
-            </div>
-            <button>Vote!</button>
-            <section></section>
-        </main>
+		<main>
+			<div id="products">
+				<img id="producta" src="" alt="" title="" />
+				<img id="productb"src="" alt="" title="" />
+				<img id="productc"src="" alt="" title="" />
+			</div>
+			<button>Chart!</button>
+			<section>
+				<canvas id="datachart" width="200" height="100"></canvas>
+			</section>
+		</main>
 
-        <Footer>
-            <!-- Coming Eventually -->
-        </Footer>
+		<Footer>
+			<!-- Coming Eventually -->
+		</Footer>
 
-        <script src="app.js"></script>
-    </body>
+		<script src="app.js"></script>
+	</body>
 </html>
