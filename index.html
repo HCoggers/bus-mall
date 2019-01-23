@@ -3,6 +3,7 @@
 	<head>
 		<title>BusMall Focus Group: Product Survey</title>
 		<link href="css/reset.css" type="text/css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 		<link href="css/style.css" type="text/css" rel="stylesheet" />
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 	</head>
@@ -12,10 +13,10 @@
 			<h1>BusMall's Product Survey</h1>
 			<nav>
 				<ul>
-					<li>Home</li>
+					<a href=""><li>Home</li></a>
 					<li>Products</li>
-					<li>About</li>
-					<li>Contact</li>
+					<a href=""><li>About</li></a>
+					<a href=""><li>Contact</li></a>
 				</ul>
 			</nav>
 		</header>
@@ -35,13 +36,12 @@
 			</div>
 			<button id="reset">Vote Again!</button>
 			<p>Thank you for helping us decide BusMall's very first batch of catalogue products! Please click The picture of the product you would be most likely to purchase! Once you have voted 25 times in total, we will show you a chart of the data we have collected from all the other participants, so that you can see how your opinions compare to others'!</p>
+			<section>
+				<canvas id="datachart" width="40" height="20"></canvas>
+			</section>
 			<p>As compensation for your assistance, you will recieve a set of our limited edition dining set, available only to BusMall volunteers!</p>
 			<img src="img/silverware.jpg" alt="Pointless Silverware" title="Pointless Silverware"/>
 		</main>
-
-		<section>
-			<canvas id="datachart" width="200" height="100"></canvas>
-		</section>
 
 		<Footer>
 			<!-- Coming Eventually -->

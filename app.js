@@ -15,6 +15,7 @@ var userClicks = 0;
 //Product Constructor function
 function Product(name, title) {
     this.title = title;
+    this.name = name;
     this.filepath = `img/${name}.jpg`;
     this.views = 0;
     this.clicks = 0;
@@ -26,9 +27,6 @@ function Product(name, title) {
 var productFiles = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var productTitles = ['R2D2 Luggage', 'Banana Slicer', 'Bathroom Tablet Stand', 'Useless Rainboots', 'All-in-one Breakfast Maker', 'Meatball Bubblegum', 'Uncomfortable Chair', 'Cthulhu Action Figure', 'Doggy Duck-beak', 'Dragon Meat', 'Pen utensils', 'Puppy Sweeper Sweater', 'Pizza Scissors', 'Shark Attack Bed', 'Baby Sweeper Sweater', 'Tauntaun Belly Sleeping Bag', 'Unicorn Meat', 'Tentacle USB Drive', 'Wrong Watering Can', 'Impossible Wine Glass'];
 
-for (var i = 0; i < productFiles.length; i++) {
-    new Product(productFiles[i], productTitles[i]);
-}
 
 //Render random 3 images
 function verifyRandoms() {
@@ -59,13 +57,7 @@ function renderProducts() {
     allProducts[randomize[2]].views++;
 }
 
-//on page load:
-verifyRandoms();
-renderProducts();
-
-//when user clicks
-options.addEventListener('click', handleClick);
-
+//event function for voting
 function handleClick(event) {
     var clickPic = false;
     for (var i = 0; i < allProducts.length; i++) {
@@ -82,7 +74,7 @@ function handleClick(event) {
     }
     verifyRandoms();
     renderProducts();
-    if (userClicks === 25 || userClicks === 50 || userClicks === 75 || userClicks === 100) {
+    if (userClicks % 5 === 0) {
         console.table(allProducts);
         options.removeEventListener('click', handleClick);
         reset.addEventListener('click', newVoter);
@@ -97,7 +89,52 @@ function handleClick(event) {
         }
         userClicks = 0;
         
+        //save data to local table
+        localStorage.savedProducts = JSON.stringify(allProducts);
+        localStorage.savedVotes = JSON.stringify(productVotes);
+
         //render data on a chart
+        var ctx = document.getElementById('datachart').getContext('2d');
+        var barGraph = new Chart(ctx, {
+            type: 'bar',
+            responsive: false,
+            data: {
+                labels: productTitles,
+                datasets: [{
+                    label: 'Votes',
+                    data: productVotes,
+                    backgroundColor: 'black',
+                    borderColor: 'orange',
+                    borderWidth: 2,
+                    hoverBackgroundColor: 'darkgrey'
+                }]
+            },
+            options: {
+                legend: {
+                    labels: {
+                        fontColor: "white",
+                        fontSize: 18
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            fontColor: "white",
+                            fontSize: 10,
+                            stepSize: 1,
+                            beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontColor: "white",
+                            fontSize: 12,
+                            autoSkip: false
+                        }
+                    }]
+                }
+            }
+        });
         barGraph.update();
     }
 }
@@ -108,14 +145,24 @@ function newVoter(event) {
     options.addEventListener('click', handleClick);
 }
 
-var ctx = document.getElementById('datachart').getContext('2d');
-var barGraph = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: productTitles,
-        datasets: [{
-            label: 'Votes',
-            data: productVotes
-        }],
+
+//on page load:
+console.log(localStorage.length);
+if(localStorage.length === 2) {
+    var loadProducts = JSON.parse(localStorage.savedProducts);
+    for (var i = 0; i < loadProducts.length; i++) {
+        new Product(loadProducts[i].name, loadProducts[i].title);
+        allProducts[i].views = loadProducts[i].views;
+        allProducts[i].clicks = loadProducts[i].clicks;
     }
-});
+    productVotes = JSON.parse(localStorage.savedVotes);
+} else {
+    for (var i = 0; i < productFiles.length; i++) {
+        new Product(productFiles[i], productTitles[i]);
+    }
+}
+verifyRandoms();
+renderProducts();
+
+//when user clicks
+options.addEventListener('click', handleClick);

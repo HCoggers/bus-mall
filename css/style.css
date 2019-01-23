@@ -2,7 +2,6 @@ body {
     width: 960px;
     margin: 0px auto;
     background-image: linear-gradient(white, rgb(0, 194, 194), rgb(54, 3, 194));
-    border: 1px solid black;
     background-repeat: space;
     font-family: sans-serif;
 }
@@ -12,7 +11,6 @@ header {
     padding: 15px 20px;
     font-size: 24px;
     letter-spacing: -1px;
-    border: orange solid 1px;
 }
 
 header img {
@@ -39,7 +37,7 @@ header ul {
 header li {
     display: inline-block;
     font-size: 16px;
-    border: solid 1px black;
+    border: solid 1px orange;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     background-color: white;
@@ -47,42 +45,58 @@ header li {
     margin: 0;
 }
 
+header a li {
+    background-color: black;
+    color: white;
+    border-color: orange;
+}
+
 aside {
-    padding: 10px;
     float: left;
+    color: orange;
+    font-family: 'VT323', monospace;
+    font-size: 10px;
     width: 172px;
     height: 380px;
-    border: blue solid 1px;
     margin: 0px;
 }
 aside div {
-    width: 172px;
+    width: 152px;
     height: 380px;
     overflow: auto;
-    background: white;
-    border: black solid 1px;
+    background: black;
+    padding: 10px;
+}
+aside h2 {
+    font-size: 20px;
+    text-align: center;
+}
+aside li {
+    margin-bottom: 5px;
 }
 
 main {
     width: 764px;
     display: inline-block;
-    border: white solid 1px;
 }
 
 main img {
     height: 160px;
-    width: 200px;
+    width: 190px;
     object-fit: cover;
+    border: 5px solid transparent;
     border-radius: 5px;
     margin: 10px;
+    transition: filter 1s;
 }
 
 main div {
-    border: black solid 1px;
     padding: 0px 46px;
 }
-main>img {
-    margin: 0 auto;
+
+#products img:hover {
+    filter: opacity(50%);
+    border-color: orange;
 }
 
 #reset {
@@ -91,11 +105,16 @@ main>img {
     color: white;
     font-size: 20px;
     background-color: black;
-    border: white solid 1px;
+    border-color: orange;
     border-radius: 10px;
     margin: 10px auto;
 }
 
-section {
-    width: 960px;
+p {
+    padding: 10px 46px;
+}
+
+main>img {
+    margin: 0px 272px;
+    border: 5px orange solid;
 }
